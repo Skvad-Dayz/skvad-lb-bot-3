@@ -1,75 +1,138 @@
-# DayZ Leaderboard Bot
+# cftools-discord-bot
 
-[![GitHub license](https://img.shields.io/github/license/Mirasaki/dayz-leaderboard-bot?style=flat-square)](https://github.com/Mirasaki/dayz-leaderboard-bot/blob/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/Mirasaki/dayz-leaderboard-bot?style=flat-square)](https://github.com/Mirasaki/dayz-leaderboard-bot/issues)
-[![GitHub forks](https://img.shields.io/github/forks/Mirasaki/dayz-leaderboard-bot?style=flat-square)](https://github.com/Mirasaki/dayz-leaderboard-bot/network)
-[![GitHub stars](https://img.shields.io/github/stars/Mirasaki/dayz-leaderboard-bot?style=flat-square)](https://github.com/Mirasaki/dayz-leaderboard-bot/stargazers)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+![build](https://img.shields.io/github/actions/workflow/status/mirasaki/cftools-discord-bot/test.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/Mirasaki/cftools-discord-bot/badge)](https://www.codefactor.io/repository/github/Mirasaki/cftools-discord-bot)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Docker Pulls](https://img.shields.io/docker/pulls/mirasaki/cftools-discord-bot)
+![version](https://img.shields.io/github/v/release/Mirasaki/cftools-discord-bot)
+<!-- ![size](https://img.shields.io/docker/image-size/mirasaki/cftools-discord-bot) -->
 
-A DayZ bot writting in Javascript to display your leaderboard using the CFTools Cloud API.
+This is a Discord bot that fully utilizes the CFTools Data API.
 
-## Demo
+## Table of Contents
 
-Come try the bot yourself in our official [support server](https://discord.gg/jKja5FBnYf)!
-![Demo](https://i.imgur.com/vzoS6cq.gif)
+- [Showcase](#showcase)
+- [Features](#features)
+- [Planned Features](#planned-features)
+- [Hosting](#hosting)
+- [Discord Permissions](#discord-permissions)
+- [Installation & Usage](#installation--usage)
+  - [Prerequisites](#prerequisites)
+  - [Docker](#run-as-a-docker-container-preferred)
+  - [Node](#run-as-a-plain-nodejs-app)
 
-## Step-by-step Video Guide
+---
 
-The people at [Custom DayZ Services](https://discord.gg/customdayzservices) were kind enough to provide us with a step-by-step video guide/tutorial on how to set up the bot and get it online & responsive. The video is located in our [support server on Discord](https://discord.gg/jKja5FBnYf).
+## Showcase
 
-[Click me after joining to jump to guide!](https://discord.com/channels/793894728847720468/976508455110193152/976509263818145882)
+<details>
+<summary>Click to view</summary>
 
-## Technologies Used
+![dm-survivor](./assets/showcase/dm-survivor.gif)
+![stats-normal](./assets/showcase/stats_normal.png)
+![admin-player-list](./assets/showcase/admin-player-list.png)
+![kick](./assets/showcase/kick.gif)
+![flagged-player-list](./assets/showcase/flagged-player-list.png)
+![server-info](./assets/showcase/server-info.png)
 
-- [discord.js-bot-template](https://github.com/Mirasaki/discord.js-bot-template)
-- [CFTools Cloud API](https://wiki.cftools.de/display/CFAPI/CFTools+Cloud+API)
+</details>
 
-## Prerequisites
+## Features
 
-- [Node.js](https://nodejs.org/en/download/)
-    1) Head over to the download page
-    2) Download the latest LTS available for your OS
-    3) Be sure to check the box that says "Automatically install the necessary tools" when you're running the installation wizard
-- A [Discord Bot account](https://discord.com/developers/applications)
+- Player Lists
+
+  - Public list
+  - Admin list with CFTools + Steam links
+  - Flagged list for potential troublesome accounts/players
+
+- User-friendly in-game player auto complete
+- Broadcast messages to everyone on server
+- Direct Message (private) online players
+- Heal players
+- Kick players
+- Spawn items on players
+- Teleport players
+- Complete leaderboard integration with all available stats
+- Display detailed player/individual statistics, supports Steam64, BattlEye GUID, and Bohemia Interactive Id
+- Player hit zone % heat maps
+- Server info overview
+- And best of all, everything is configurable!
+
+## Planned Features
+
+- Public channel that forwards Discord messages to DayZ (configurable module)
+- Execute raw RCon commands - I'm looking for someone that is very knowledgeable on available RCon command
+- Dedicated Server Status channel, overview with online/offline status
+- Manage Priority Queue
+- Manage Ban lists
+- Manage Whitelists
+- Custom GameLab action support
+
+## Hosting
+
+We have partnered with [VYKIX.com](https://portal.vykix.com/aff.php?aff=17) after observing many of our clients using VYKIX services and products. Check them out for affordable and reliable hosting, they bring the **best DayZ hosting experience possible.** 📈
+
+## Discord Permissions
+
+> This is not the permission level required to execute actions or run commands, like User, Moderator or Administrator
+
+Invite the bot to your server by navigating to the following URL (replace `YOUR_CLIENT_ID` with `CLIENT_ID` from the `/config/.env` file):
+
+`https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=0&scope=bot%20applications.commands`
+
+Any command can be used without any Discord permissions, as long as the bot is invited to your server with the `bot` and `applications.commands` scopes. You can use the template url above, or alternatively, generate an invite link in the [Discord Developer Portal](https://discord.com/developers/applications) (Your App > OAuth2 > URL Generator > `scopes: bot + applications.commands`)
+
+`AUTOMATIC_LEADERBOARD_MODULE`: This requires the following permissions in any channel this module is assigned to: `View Channel`, `Read Message History`, `Send Messages`, and `Embed Links`
+
+## Installation & Usage
+
+### Prerequisites
+
+- A CFTools [developer application](https://developer.cftools.cloud/applications)
+  - Make sure you navigate to the "Grant URL" that's displayed and authorize access to your server & resources (ban lists for example)
+- A [Discord Bot account](https://discord.com/developers/applications "Discord Developer Portal")
     1) Head over to the page linked above
     2) Click "New Application" in the top right
     3) Give it a cool name and click "Create"
     4) Click "Bot" in the left hand panel
     5) Click "Add Bot" -> "Yes, do it!"
-    6) Click "Rest Token" and copy it to your clipboard, you will need it later
+    6) Click "Reset Token" and copy it to your clipboard, you will need it later
+- [NodeJS](https://nodejs.org/en/download/ "Node official website") (if you're running as a plain NodeJS app)
+    1) Head over to the download page
+    2) Download the latest LTS build available for your OS
+    3) Be sure to check the box that says "Automatically install the necessary tools" when you're running the installation wizard
 
-## Installation
+### Run as a Docker container (preferred)
 
-1. Download the latest release [here](https://github.com/Mirasaki/dayz-leaderboard-bot/releases)
-2. Extract/unzip the downloaded compressed file into a new folder
-3. Open a command prompt in the project root folder/directory
-    - On Windows you can type `cmd.exe` in the File Explorer path
-    - Root folder structure:
-      - commands/
-      - local_modules/
-      - .env.example
-      - index.js
-      - etc...
-4. Run the command `npm install`
-5. Copy-paste the `.env.example` file in the same directory and re-name the created file to `.env`
-6. Open the `.env` file and fill in your values
-    - `CLIENT_ID`: Can be grabbed by creating a new application in [your Discord Developer Portal](https://discord.com/developers/applications)
-    - `DISCORD_BOT_TOKEN`: After creating your bot on the link above, navigate to `Bot` in the left-side menu to reveal your bot-token
-    - `CFTOOLS_API_APPLICATION_ID`: Application ID from your [CFTools Developer Apps](https://developer.cftools.cloud/applications) - Authorization has to be granted by navigating to the `Grant URL` that's displayed in your app overview
-    - `CFTOOLS_API_SECRET`: Same as above, click `Reveal Secret`
-    - `CFTOOLS_SERVER_API_ID`: Click `Manage Server` in your [CF Cloud Panel](https://app.cftools.cloud/dashboard) > `Settings` > `API Key` > `Server ID`
-7. Add the bot to your server by using the following link: (Replace CLIENT-ID with your CLIENT_ID from before) <https://discord.com/api/oauth2/authorize?client_id=CLIENT-ID&permissions=0&scope=bot%20applications.commands>
-8. Run the command `node .` in the project root folder/directory or `npm run start` if you have [PM2](https://pm2.keymetrics.io/) installed to keep the process alive.
+The quickest and easiest way to host/use this bot is by deploying it inside of a [Docker](https://docs.docker.com/engine/install/ "Official Docker Website") container.
 
-### FAQ
+> *A [**docker-compose**](https://docs.docker.com/compose/ "View docker-compose documentation") file is included for your convenience*
 
-#### How do I create the Discord bot account?
+1. Clone this repository: `git clone https://github.com/Mirasaki/cftools-discord-bot.git`
+2. Navigate inside the new folder: `cd cftools-discord-bot`
+3. Rename `/config/.env.example` to `.env` and provide your environmental variables
+4. Rename `/config/config.example.js` to `config.js` and provide your bot configuration
+5. Rename `/config/servers.example.js` to `servers.js` and provide your server configuration
+    - Alternatively, you can now use the `docker-compose up` command to finish setting up the project if you have the [Docker Compose CLI](https://docs.docker.com/compose/) installed
+6. Build the project: `docker build --tag my-discord-bot .`
+7. Start the bot: `docker run -it --env-file .env --name my-discord-bot mirasaki/cftools-discord-bot:main`
 
-Check out [this video](https://www.youtube.com/watch?v=ibtXXoMxaho) by [The Coding Train](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
+### Run as a plain NodeJS app
 
-#### Is any specific set-up required to use this?
+You can also clone this repository or download a release, and host the project directly. You will need [Node/NodeJS](https://nodejs.org/en/ "Node official website") (Be sure to check the box that says "Automatically install the necessary tools" when you're running the installation wizard)
 
-Yes. Your DayZ server has to be connected to the [CFTools Cloud API](https://wiki.cftools.de/display/CFAPI/CFTools+Cloud+API) and needs the [GameLabs integration](https://steamcommunity.com/sharedfiles/filedetails/?id=2464526692) mod.
+1. Head over to [the download page](https://github.com/Mirasaki/cftools-discord-bot/releases/)
+    - Alternatively, clone this repository by using `git clone https://github.com/Mirasaki/cftools-discord-bot.git` and skip to step 4 if you have [Git](https://git-scm.com/downloads "Git Download Section") installed
+2. Download either the `zip` or `zip.gz` source code
+3. Extract it using [your favorite zip tool](https://www.rarlab.com/download.htm "It's WinRar, duh")
+4. Open a new console/terminal/shell window in the newly created project folder
+5. Run `npm install` to install all dependencies
+6. Rename [`/config/.env.example`](/config/.env.example "View .env.example file in current repository") to `.env` and configure your environmental variables
+7. Rename [`/config/config.example.js`](/config/config.example.js "View config.example.js file in current repository") to `config.js` and go through your bot configuration
+8. Rename [`/config/servers.example.js`](/config/servers.example.js "View servers.example.js file in current repository") to `servers.js` and go through your server configuration
+9. Use the command `node .` to start the application, or alternatively:
+    - `npm run start` to keep the process alive with [PM2](https://pm2.io/ "PM2 | Official Website"), suitable for production environments. (`npm i -g pm2` to install)
+    - `npm run start:dev` if you have `nodemon` installed for automatic restarts on changes, suitable for development environments
 
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+> Open source, self-hosted, and MIT licensed, meaning you're in full control.

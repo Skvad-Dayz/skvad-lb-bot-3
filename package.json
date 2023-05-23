@@ -1,52 +1,101 @@
 {
-  "name": "dayz-leaderboard-bot",
-  "description": "A DayZ bot written in Javascript to display your leaderboard using the CFTools Cloud API.",
+  "name": "cftools-discord-bot",
+  "description": "A discord bot template using discord.js",
   "version": "1.1.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon -w . -w config/.env run node --trace-warnings .",
-    "start": "node src/index.js ",
-    "stop": "pm2 stop dayz-leaderboard-bot",
-    "remove": "pm2 stop dayz-leaderboard-bot && pm2 delete dayz-leaderboard-bot && pm2 reset dayz-leaderboard-bot",
-    "logs": "pm2 logs --lines 300 dayz-leaderboard-bot",
-    "logsError": "pm2 logs --err --lines 300 dayz-leaderboard-bot",
+    "start": "node .",
+    "dev": "nodemon run node --trace-warnings .",
+    "test": "node . mode=test",
+    "commit": "cz",
+    "docker:build": "docker build --tag cftools-discord-bot .",
+    "docker:shell": "docker run -it --rm cftools-discord-bot sh",
+    "docker:start": "docker run -it -p 3000:3000 --env-file ./.env -d --name cftools-discord-bot cftools-discord-bot",
+    "docker:restart": "docker restart cftools-discord-bot",
+    "docker:stop": "docker stop cftools-discord-bot",
+    "docker:kill": "docker rm -f cftools-discord-bot",
+    "docker:purge": "docker rm -fv cftools-discord-bot",
+    "docker:logs": "docker logs cftools-discord-bot -f",
+    "docker:image": "docker image tag cftools-discord-bot mirasaki/cftools-discord-bot",
+    "docker:push": "docker push mirasaki/cftools-discord-bot",
+    "docker:update": "git pull && npm install && npm run docker:stop && npm run docker:kill && npm run docker:build && npm run docker:start",
+    "docker:dev:build": "docker build --tag cftools-discord-bot-dev -f development.Dockerfile .",
+    "docker:dev:start": "docker run -it --rm -v $(pwd):/app -v /app/node_modules -p 3000:3000 -p 9229:9229 -w /app cftools-discord-bot-dev",
+    "pm2:start": "pm2 start --name=cftools-discord-bot npm -- run start",
+    "pm2:stop": "pm2 stop cftools-discord-bot",
+    "pm2:purge": "pm2 stop cftools-discord-bot && pm2 delete cftools-discord-bot && pm2 reset cftools-discord-bot",
+    "pm2:logs": "pm2 logs --lines 300 cftools-discord-bot",
+    "pm2:logsError": "pm2 logs --err --lines 300 cftools-discord-bot",
     "lint": "eslint src",
     "linter": "eslint src --fix",
-    "writeLinter": "eslint src --output-file linter-output.txt"
-  },
-  "engines": {
-    "node": ">=16.10.0"
+    "writeLinter": "eslint src --output-file linter-output.txt",
+    "docs": "jsdoc -u ./tutorials --readme README.md -c jsdoc.json",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "dependencies": {
-    "@discordjs/rest": "^0.4.1",
+    "@discordjs/rest": "^1.7.0",
     "@mirasaki/logger": "^1.0.5",
-    "cftools-sdk": "^1.8.0",
+    "cftools-sdk": "^2.0.0",
     "common-tags": "^1.8.2",
-    "cross-fetch": "^3.1.5",
-    "discord.js": "^14.1.2",
-    "dotenv": "^16.0.0",
-    "express": "^4.18.1"
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "heatmap.js": "^2.0.5",
+    "puppeteer": "^20.3.0"
   },
   "devDependencies": {
-    "eslint": "^8.15.0",
-    "nodemon": "^2.0.16"
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/npm": "^10.0.3",
+    "@semantic-release/release-notes-generator": "^11.0.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "docdash": "^2.0.1",
+    "eslint": "^8.40.0",
+    "eslint-plugin-sonarjs": "^0.19.0",
+    "jsdoc": "^4.0.2",
+    "jsdoc-to-markdown": "^8.0.0",
+    "nodemon": "^2.0.22",
+    "semantic-release": "^21.0.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mirasaki/dayz-leaderboard-bot.git"
+    "url": "git+https://github.com/Mirasaki/cftools-discord-bot.git"
   },
   "keywords": [
+    "nodejs",
     "bot-template",
     "template",
+    "boilerplate",
+    "discord-api",
+    "typings",
     "discord",
+    "discordjs",
+    "v14",
     "discord-bot",
-    "discord-bot-template"
+    "cftools-discord-bot",
+    "slash-commands",
+    "buttons",
+    "modals",
+    "autocomplete",
+    "context-menus",
+    "select-menus",
+    "documented"
   ],
   "author": "Richard Hillebrand (Mirasaki)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Mirasaki/dayz-leaderboard-bot/issues"
+    "url": "https://github.com/Mirasaki/cftools-discord-bot/issues"
   },
-  "homepage": "https://github.com/Mirasaki/dayz-leaderboard-bot#readme"
+  "homepage": "https://github.com/Mirasaki/cftools-discord-bot#readme",
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
