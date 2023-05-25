@@ -72,7 +72,7 @@ module.exports = [
     LEADERBOARD_PLAYER_LIMIT: 100,
     // Players to exclude from leaderboard
     LEADERBOARD_BLACKLIST: [
-      '6284d7a30873a63f22e34f34',
+      '6284d7a30873a63f22e34f4',
       'CFTools IDs to exclude from the blacklist',
       'always use commas (,) at the end of the line EXCEPT THE LAST ONE > like so'
     ],
