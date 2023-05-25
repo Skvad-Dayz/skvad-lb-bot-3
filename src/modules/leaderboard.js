@@ -109,7 +109,7 @@ const buildLeaderboardEmbedMessages = (guild, res, isDefaultQuery, statToGet, pl
   let embeds = [];
   const embedFieldLimit = 25;
   const maxPageCharSeize = 6000;
-  const LAST_EMBED_FOOTER_TEXT = 'Did you know, you can use /stats <id> to display detailed information on a player?\nYou can find someone\'s CFTools id on their CFTools Cloud account page';
+  const LAST_EMBED_FOOTER_TEXT = '(C) SKVAD';
 
   // Variables that reset in next loop
   let currentPage = [];
