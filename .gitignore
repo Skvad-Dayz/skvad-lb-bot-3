@@ -7,7 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 
 # JSON config file
-
+config.js
+servers.js
 
 # Eslint output
 linter-output.txt
@@ -75,6 +76,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
