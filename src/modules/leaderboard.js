@@ -109,7 +109,7 @@ const buildLeaderboardEmbedMessages = (guild, res, isDefaultQuery, statToGet, pl
   let embeds = [];
   const embedFieldLimit = 25;
   const maxPageCharSeize = 6000;
-  const LAST_EMBED_FOOTER_TEXT = '(C) SKVAD';
+  const LAST_EMBED_FOOTER_TEXT = '© SKVAD';
 
   // Variables that reset in next loop
   let currentPage = [];
