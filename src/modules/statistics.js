@@ -6,7 +6,7 @@ const { createHitZonesHeatMap } = require('./heatmap');
 const { AttachmentBuilder } = require('discord.js');
 
 const playerStatisticsCtx = async (cfg, {
-  names,
+  //names;
   playtime,
   sessions,
   statistics: {
@@ -38,7 +38,7 @@ const playerStatisticsCtx = async (cfg, {
   const cleanedWeaponName = titleCase(favoriteWeaponName.replace(/_/g, ' '));
 
   // Reversing the name history array so the latest used name is the first item
-  names.reverse();
+  //names.reverse();
 
   // Generate hit zone image
   const files = [];
@@ -59,7 +59,6 @@ const playerStatisticsCtx = async (cfg, {
           Survivor has played for ${ msToHumanReadableTime(playtime * 1000) } - over ${ sessions } total sessions.
           Bringing them to an average of ${ playtimePerSessionStr } per session.
   
-          **Name History:** **\`${ names.slice(0, 10).join('`**, **`') || 'None' }\`**
   
           **Favorite Weapon:** ${ cleanedWeaponName ?? 'Knife' } with ${ highestKills ?? 0 } kills
   
